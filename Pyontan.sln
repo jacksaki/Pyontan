@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.5.33414.496
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pyontan", "Pyontan\Pyontan.csproj", "{A0B32129-8681-47C4-8B41-E0D3552EF5A1}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x86 = Debug|x86
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A0B32129-8681-47C4-8B41-E0D3552EF5A1}.Debug|x86.ActiveCfg = Debug|x86
+		{A0B32129-8681-47C4-8B41-E0D3552EF5A1}.Debug|x86.Build.0 = Debug|x86
+		{A0B32129-8681-47C4-8B41-E0D3552EF5A1}.Release|x86.ActiveCfg = Release|x86
+		{A0B32129-8681-47C4-8B41-E0D3552EF5A1}.Release|x86.Build.0 = Release|x86
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {E37703AA-AC16-4B95-919F-7903373F7494}
+	EndGlobalSection
+EndGlobal

@@ -1,0 +1,53 @@
+﻿<UserControl x:Class="Pyontan.Views.ExplainBox"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:avalon="http://icsharpcode.net/sharpdevelop/avalonedit"
+    xmlns:mahApps="http://metro.mahapps.com/winfx/xaml/controls"
+    xmlns:wpf="http://materialdesigninxaml.net/winfx/xaml/themes"
+    xmlns:l="http://schemas.livet-mvvm.net/2011/wpf"
+    xmlns:v="clr-namespace:Pyontan.Views"
+    xmlns:vm="clr-namespace:Pyontan.ViewModels"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Pyontan.Views"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="5"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <GroupBox Header="ソース" Style="{StaticResource MaterialDesignGroupBox}">
+            <avalon:TextEditor Foreground="{DynamicResource MaterialDesignBody}" Background="{DynamicResource MaterialDesignTextFieldBoxBackground}"  Document="{Binding SourceDocument,UpdateSourceTrigger=PropertyChanged}" ShowLineNumbers="True" SyntaxHighlighting="C#"/>
+        </GroupBox>
+        <GridSplitter Grid.Column="1" Width="5" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+        <Grid Grid.Column="2">
+            <GroupBox Header="ログ">
+                
+                <TabControl wpf:ColorZoneAssist.Mode="PrimaryLight" Style="{StaticResource MaterialDesignFilledTabControl}">
+                    <TabItem>
+                        <TabItem.HeaderTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal">
+                                    <wpf:PackIcon Kind="FileDocument" VerticalAlignment="Center"/>
+                                    <TextBlock Text="ログ"/>
+                                </StackPanel>
+                            </DataTemplate>
+                        </TabItem.HeaderTemplate>
+                    </TabItem>
+                    <TabItem>
+                        <TabItem.HeaderTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal">
+                                    <wpf:PackIcon Kind="Database" VerticalAlignment="Center"/>
+                                    <TextBlock Text="SQL"/>
+                                </StackPanel>
+                            </DataTemplate>
+                        </TabItem.HeaderTemplate>
+                    </TabItem>
+                </TabControl>
+            </GroupBox>
+        </Grid>
+    </Grid>
+</UserControl>
