@@ -25,6 +25,10 @@ namespace Pyontan.ViewModels
                 RaisePropertyChanged(nameof(DbContextSourceDocument));
             };
             this.DbContextSourceDocument.Text = this.ProjectSettings.DbContextSource ?? "";
+            this.ProjectSettings.Loaded += (sender, e) =>
+            {
+                this.DbContextSourceDocument.Text = this.ProjectSettings.DbContextSource ?? "";
+            };
         }
         public ProjectSettings ProjectSettings
         {

@@ -11,8 +11,20 @@ namespace Pyontan.Models
 {
     public class VisualSettings: NotificationObject
     {
+        public event EventHandler Loaded = delegate { };
         private bool _IsDarkMode;
-
+        public void OnLoaded()
+        {
+            this.Loaded(this, EventArgs.Empty);
+        }
+        public VisualSettings(Settings parent)
+        {
+            this.Parent = parent;
+        }
+        public Settings Parent
+        {
+            get;
+        }
         public bool IsDarkMode
         {
             get

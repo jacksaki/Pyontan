@@ -9,6 +9,8 @@ namespace Pyontan.Models
 {
     public class DbProject:NotificationObject
     {
+        public event EventHandler Loaded = delegate { };
+
         public DbProject()
         {
         }
@@ -29,6 +31,14 @@ namespace Pyontan.Models
                 }
                 _Source = value;
                 RaisePropertyChanged();
+            }
+        }
+
+        internal void Validate()
+        {
+            if (string.IsNullOrWhiteSpace(this.Source))
+            {
+                throw new ApplicationException("source is required.");
             }
         }
     }

@@ -25,6 +25,10 @@ namespace Pyontan.ViewModels
                 RaisePropertyChanged(nameof(AdditionalSourceDocument));
             };
             this.AdditionalSourceDocument.Text = this.ProjectSettings.AdditionalSource ?? "";
+            this.ProjectSettings.Loaded += (sender, e) =>
+            {
+                this.AdditionalSourceDocument.Text = this.ProjectSettings.AdditionalSource ?? "";
+            };
         }
         public ProjectSettings ProjectSettings
         {

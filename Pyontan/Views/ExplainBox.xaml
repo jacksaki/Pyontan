@@ -2,16 +2,19 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:avalon="http://icsharpcode.net/sharpdevelop/avalonedit"
-    xmlns:mahApps="http://metro.mahapps.com/winfx/xaml/controls"
-    xmlns:wpf="http://materialdesigninxaml.net/winfx/xaml/themes"
-    xmlns:l="http://schemas.livet-mvvm.net/2011/wpf"
-    xmlns:v="clr-namespace:Pyontan.Views"
-    xmlns:vm="clr-namespace:Pyontan.ViewModels"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Pyontan.Views"
              mc:Ignorable="d" 
+            xmlns:mahApps="http://metro.mahapps.com/winfx/xaml/controls"
+            xmlns:wpf="http://materialdesigninxaml.net/winfx/xaml/themes"
+            xmlns:l="http://schemas.livet-mvvm.net/2011/wpf"
+            xmlns:v="clr-namespace:Pyontan.Views"
+            xmlns:vm="clr-namespace:Pyontan.ViewModels"
              d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.Resources>
+        <v:LogTypeToStringConverter x:Key="LogTypeToString"/>
+    </UserControl.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
@@ -19,7 +22,12 @@
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
         <GroupBox Header="ソース" Style="{StaticResource MaterialDesignGroupBox}">
-            <avalon:TextEditor Foreground="{DynamicResource MaterialDesignBody}" Background="{DynamicResource MaterialDesignTextFieldBoxBackground}"  Document="{Binding SourceDocument,UpdateSourceTrigger=PropertyChanged}" ShowLineNumbers="True" SyntaxHighlighting="C#"/>
+            <Grid>
+                <avalon:TextEditor Foreground="{DynamicResource MaterialDesignBody}" Background="{DynamicResource MaterialDesignTextFieldBoxBackground}"  Document="{Binding SourceDocument,UpdateSourceTrigger=PropertyChanged}" ShowLineNumbers="True" SyntaxHighlighting="C#"/>
+                <Button Style="{StaticResource MaterialDesignFloatingActionAccentButton}" Command="{Binding ExecuteCommand}" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="8">
+                    <wpf:PackIcon Kind="LightningBolt" Height="32" Width="32"/>
+                </Button>
+            </Grid>
         </GroupBox>
         <GridSplitter Grid.Column="1" Width="5" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
         <Grid Grid.Column="2">
@@ -35,6 +43,16 @@
                                 </StackPanel>
                             </DataTemplate>
                         </TabItem.HeaderTemplate>
+                        <ListView ItemsSource="{Binding Logs}">
+                            <ListView.View>
+                                <GridView>
+                                    <GridView.Columns>
+                                        <GridViewColumn Header="種類" DisplayMemberBinding="{Binding Type,Converter={StaticResource LogTypeToString}}"/>
+                                        <GridViewColumn Header="内容" DisplayMemberBinding="{Binding Text}"/>
+                                    </GridView.Columns>
+                                </GridView>
+                            </ListView.View>
+                        </ListView>
                     </TabItem>
                     <TabItem>
                         <TabItem.HeaderTemplate>
