@@ -38,7 +38,7 @@
         <wpf:Card Grid.Column="2">
             <GroupBox Header="Additional Assemblies">
                 <Grid>
-                    <ListView ItemsSource="{Binding ProjectSettings.AdditionalAssemblies}">
+                    <ListView ItemsSource="{Binding ProjectSettings.AdditionalAssemblies}" SelectedItem="{Binding SelectedAssembly,Mode=TwoWay}">
                         <ListView.View>
                             <GridView>
                                 <GridView.Columns>

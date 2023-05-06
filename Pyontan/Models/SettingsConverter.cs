@@ -21,7 +21,7 @@ namespace Pyontan.Models
             var obj = new SettingsConverter();
             obj.Source = settings.ProjectSettings.Source;
             obj.SelectedGlobalAssemblies = settings.ProjectSettings.GlobalAssemblies.Where(x => x.IsSelected).Select(x => x.Name).ToList();
-            obj.AdditionalAssemblies = settings.ProjectSettings.AdditionalAssemblies.Select(x => x.Name).ToList();
+            obj.AdditionalAssemblies = settings.ProjectSettings.AdditionalAssemblies.Select(x => x.Path).ToList();
             obj.EnvironmentVariables = settings.ProjectSettings.EnvironmentVariables.ToDictionary(x => x.Key, y => y.Value);
             obj.Imports = settings.ProjectSettings.ImportList.ToList();
 
@@ -61,7 +61,7 @@ namespace Pyontan.Models
             {
                 settings.ProjectSettings.EnvironmentVariables.Add(new EnvironmentVariableItem() { Key = env.Key, Value = env.Value });
             }
-            settings.ProjectSettings.Imports = string.Join("\r\n,", obj.Imports);
+            settings.ProjectSettings.Imports = string.Join("\r\n", obj.Imports);
             settings.ProjectSettings.DbContextSource = obj.DbContextSource;
             settings.ProjectSettings.AdditionalSource = obj.AdditionalSource;
             settings.AppSettings.ConnectionString = obj.ConnectionString;
@@ -72,6 +72,7 @@ namespace Pyontan.Models
             settings.VisualSettings.ColorSelectionValue = (ColorSelection)obj.ColorSelectionValue;
             settings.VisualSettings.ContrastValue = obj.ContrastValue.ToContrast();
             settings.VisualSettings.DesiredContrastRatio = obj.DesiredContrastRatio;
+            settings.OnLoaded();
         }
         [Key(0)]
         public string Source

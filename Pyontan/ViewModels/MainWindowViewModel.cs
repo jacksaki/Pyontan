@@ -25,8 +25,14 @@ namespace Pyontan.ViewModels
             this.Project = new DbProject();
             this.ExplainBoxViewModel = new ExplainBoxViewModel(this);
             this.ExplainBoxViewModel.PropertyChanged += (sender, e) => { RaisePropertyChanged(nameof(ExplainBoxViewModel)); };
+            this.ExplainBoxViewModel.ErrorOccurred += Menu_ErrorOccurred;
+            this.ExplainBoxViewModel.Message += Menu_Message;
+
             this.SettingsBoxViewModel = new SettingsBoxViewModel(this);
             this.SettingsBoxViewModel.PropertyChanged += (sender, e) => { RaisePropertyChanged(nameof(SettingsBoxViewModel)); };
+            this.SettingsBoxViewModel.ErrorOccurred += Menu_ErrorOccurred;
+            this.SettingsBoxViewModel.Message += Menu_Message;
+
             var fv = System.Diagnostics.FileVersionInfo.GetVersionInfo(System.Reflection.Assembly.GetExecutingAssembly().Location);
             this.AppTitle = $"{fv.ProductName} Ver {fv.ProductVersion}";
         }

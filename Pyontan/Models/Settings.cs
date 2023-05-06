@@ -4,14 +4,25 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms.VisualStyles;
 
 namespace Pyontan.Models
 {
     public class Settings:NotificationObject
     {
+        public event EventHandler Loaded = delegate { };
         public Settings()
         {
-
+            this.AppSettings = new AppSettings(this);
+            this.VisualSettings = new VisualSettings(this);
+            this.ProjectSettings = new ProjectSettings(this);
+        }
+        public void OnLoaded()
+        {
+            this.Loaded(this, EventArgs.Empty);
+            this.VisualSettings.OnLoaded();
+            this.ProjectSettings.OnLoaded();
+            this.AppSettings.OnLoaded();
         }
         public static string SavedPath
         {
@@ -33,14 +44,14 @@ namespace Pyontan.Models
         public AppSettings AppSettings
         {
             get;
-        } = new AppSettings();
+        } 
         public ProjectSettings ProjectSettings
         {
             get;
-        } = new ProjectSettings();
+        } 
         public VisualSettings VisualSettings
         {
             get;
-        } = new VisualSettings();
+        } 
     }
 }

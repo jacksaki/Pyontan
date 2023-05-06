@@ -25,6 +25,10 @@ namespace Pyontan.ViewModels
                 RaisePropertyChanged(nameof(ImportsDocument));
             };
             this.ImportsDocument.Text = this.ProjectSettings.Imports ?? "";
+            this.ProjectSettings.Loaded += (sender, e) =>
+            {
+                this.ImportsDocument.Text = this.ProjectSettings.Imports;
+            };
         }
         public ProjectSettings ProjectSettings
         {

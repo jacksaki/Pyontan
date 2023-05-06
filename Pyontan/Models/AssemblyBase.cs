@@ -20,7 +20,6 @@ namespace Pyontan.Models
             this.Assembly = System.Reflection.Assembly.LoadFile(path);
             this.IsSelected = false;
         }
-
         public abstract bool IsGlobal { get; }
 
         private bool _IsSelected = false;

@@ -23,9 +23,11 @@
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto"/>
                         <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
                     </Grid.ColumnDefinitions>
                     <TextBlock Margin="4" VerticalAlignment="Center" Text="接続文字列"/>
                     <TextBox Margin="4"  HorizontalAlignment="Stretch" VerticalAlignment="Center" Grid.Column="1" Text="{Binding Settings.ConnectionString,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
+                    <Button Grid.Column="2" Content="テスト" Command="{Binding TestCommand}"/>
                 </Grid>
             </GroupBox>
         </wpf:Card>

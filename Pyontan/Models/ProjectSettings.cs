@@ -10,8 +10,20 @@ namespace Pyontan.Models
 {
     public class ProjectSettings : NotificationObject
     {
-        public ProjectSettings()
+        public event EventHandler Loaded = delegate { };
+        public Settings Parent
         {
+            get;
+        }
+        public void OnLoaded()
+        {
+            this.Loaded(this, EventArgs.Empty);
+        }
+
+        public ProjectSettings(Settings parent)
+        {
+            this.Parent = parent;
+
             this.GlobalAssemblies.CollectionChanged += (sender, e) =>
             {
                 if (e.OldItems != null)
@@ -162,6 +174,12 @@ namespace Pyontan.Models
                 _globalAssemblies.Add(asm);
             }
         }
+
+        internal void Validate()
+        {
+
+        }
+
         public DispatcherCollection<GlobalAssembly> GlobalAssemblies
         {
             get
@@ -200,7 +218,7 @@ namespace Pyontan.Models
         {
             get
             {
-                return (this.Imports ?? "").Split(new string[] { "\r\n", "\r", "\n" }, StringSplitOptions.None);
+                return (this.Imports ?? "").Split(new string[] { "\r\n", "\r", "\n" }, StringSplitOptions.None).Where(x=>!string.IsNullOrEmpty(x));
             }
         }
     }

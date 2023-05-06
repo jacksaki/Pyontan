@@ -19,12 +19,44 @@ namespace Pyontan.ViewModels
         public SettingsBoxViewModel(MainWindowViewModel parent) : base(parent)
         {
             this.AssembliesBoxViewModel = new AssembliesBoxViewModel(parent);
+            this.AssembliesBoxViewModel.ErrorOccurred += ViewModel_ErrorOccurred;
+            this.AssembliesBoxViewModel.Message += ViewModel_Message;
+
             this.ImportsBoxViewModel = new ImportsBoxViewModel(parent);
+            this.ImportsBoxViewModel.ErrorOccurred += ViewModel_ErrorOccurred;
+            this.ImportsBoxViewModel.Message += ViewModel_Message;
+
             this.EnvironmentVariablesBoxViewModel = new EnvironmentVariablesBoxViewModel(parent);
+            this.EnvironmentVariablesBoxViewModel.ErrorOccurred += ViewModel_ErrorOccurred;
+            this.EnvironmentVariablesBoxViewModel.Message += ViewModel_Message;
+
             this.DbContextBoxViewModel = new DbContextBoxViewModel(parent);
+            this.DbContextBoxViewModel.ErrorOccurred += ViewModel_ErrorOccurred;
+            this.DbContextBoxViewModel.Message += ViewModel_Message;
+
             this.AdditionalSourceBoxViewModel = new AdditionalSourceBoxViewModel(parent);
+            this.AdditionalSourceBoxViewModel.ErrorOccurred += ViewModel_ErrorOccurred;
+            this.AdditionalSourceBoxViewModel.Message += ViewModel_Message;
+
             this.VisualBoxViewModel = new VisualBoxViewModel(parent);
+            this.VisualBoxViewModel.ErrorOccurred += ViewModel_ErrorOccurred;
+            this.VisualBoxViewModel.Message += ViewModel_Message;
+
+            this.EtcSettingsBoxViewModel = new EtcSettingsBoxViewModel(parent);
+            this.EtcSettingsBoxViewModel.ErrorOccurred += ViewModel_ErrorOccurred;
+            this.EtcSettingsBoxViewModel.Message += ViewModel_Message;
         }
+
+        private void ViewModel_Message(object sender, MessageEventArgs e)
+        {
+            OnMessage(e);
+        }
+
+        private void ViewModel_ErrorOccurred(object sender, ErrorOccurredEventArgs e)
+        {
+            OnErrorOccurred(e);
+        }
+
         public VisualBoxViewModel VisualBoxViewModel
         {
             get;
@@ -34,6 +66,10 @@ namespace Pyontan.ViewModels
             get;
         }
         public ImportsBoxViewModel ImportsBoxViewModel
+        {
+            get;
+        }
+        public EtcSettingsBoxViewModel EtcSettingsBoxViewModel
         {
             get;
         }
