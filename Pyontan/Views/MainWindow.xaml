@@ -45,6 +45,11 @@
                     <v:ExplainBox DataContext="{Binding ExplainBoxViewModel}"/>
                 </wpf:Card>
             </TabItem>
+            <TabItem Header="DbSet">
+                <wpf:Card>
+                    <v:DbSetBox DataContext="{Binding DbSetBoxViewModel}"/>
+                </wpf:Card>
+            </TabItem>
             <TabItem Header="設定">
                 <wpf:Card>
                     <v:SettingsBox DataContext="{Binding SettingsBoxViewModel}"/>

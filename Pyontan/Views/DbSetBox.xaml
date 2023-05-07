@@ -1,0 +1,65 @@
+﻿<UserControl x:Class="Pyontan.Views.DbSetBox"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+    xmlns:mahApps="http://metro.mahapps.com/winfx/xaml/controls"
+    xmlns:wpf="http://materialdesigninxaml.net/winfx/xaml/themes"
+    xmlns:l="http://schemas.livet-mvvm.net/2011/wpf"
+    xmlns:v="clr-namespace:Pyontan.Views"
+    xmlns:vm="clr-namespace:Pyontan.ViewModels"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Pyontan.Views"
+             xmlns:avalon="http://icsharpcode.net/sharpdevelop/avalonedit"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="5"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <ToolBar>
+                <Button Command="{Binding RefreshCommand}" Style="{DynamicResource MaterialDesignFloatingActionAccentButton}">
+                    <wpf:PackIcon Kind="LightningBolt"/>
+                </Button>
+            </ToolBar>
+            <ComboBox Grid.Row="1" Width="200" HorizontalAlignment="Stretch" ItemsSource="{Binding AllSchema}" DisplayMemberPath="Name" SelectedItem="{Binding SelectedSchema,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
+            <TextBox Grid.Row="2" wpf:HintAssist.HelperText="テーブル名"/>
+            <ListView Grid.Row="3" ItemsSource="{Binding Tables}" SelectedItem="{Binding SelectedTable,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}">
+                <ListView.View>
+                    <GridView>
+                        <GridView.Columns>
+                            <GridViewColumn Header="Schema" DisplayMemberBinding="{Binding SchemaName}"/>
+                            <GridViewColumn Header="Table" DisplayMemberBinding="{Binding Name}"/>
+                            <GridViewColumn Header="Type" DisplayMemberBinding="{Binding Type}"/>
+                        </GridView.Columns>
+                    </GridView>
+                </ListView.View>
+            </ListView>
+        </Grid>
+        <GridSplitter Grid.Column="1" Width="5" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+        <Grid Grid.Column="2">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <GroupBox Header="プロパティ">
+                <avalon:TextEditor Document="{Binding PropertyDocument}" SyntaxHighlighting="C#" ShowLineNumbers="True"/>
+            </GroupBox>
+            <GroupBox Grid.Row="1" Header="OnModelCreating">
+                <avalon:TextEditor Document="{Binding OnModelCreatingDocument}" SyntaxHighlighting="C#" ShowLineNumbers="True"/>
+            </GroupBox>
+            <GroupBox Grid.Row="2" Header="ソース">
+                <avalon:TextEditor Document="{Binding SourceDocument}" SyntaxHighlighting="C#" ShowLineNumbers="True"/>
+            </GroupBox>
+        </Grid>
+    </Grid>
+</UserControl>

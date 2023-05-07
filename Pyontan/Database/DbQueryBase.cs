@@ -26,6 +26,28 @@ namespace Pyontan
         {
             return this.Connection.BeginTransaction();
         }
+
+        public IDictionary<string,Type>GetColumnTypes(string schema, string tableName)
+        {
+            var sb = new System.Text.StringBuilder();
+            sb.AppendLine("SELECT");
+            sb.AppendLine(" *");
+            sb.AppendLine("FROM");
+            sb.AppendLine($" \"{schema}\".\"{tableName}\"");
+            sb.AppendLine("WHERE");
+            sb.AppendLine("1 = 2");
+            using(var cmd = GenerateCommand(sb.ToString(), null))
+            using(var dr = cmd.ExecuteReader(CommandBehavior.SchemaOnly))
+            {
+                var columnCount = dr.FieldCount;
+                var result = new Dictionary<string, Type>();
+                for(var i = 0; i < columnCount; i++)
+                {
+                    result.Add(dr.GetName(i), dr.GetFieldType(i));
+                }
+                return result;
+            }
+        }
         protected virtual IDbCommand GenerateCommand(string sql, IDictionary<string, object> param)
         {
             var cmd = this.Connection.CreateCommand();

@@ -21,10 +21,10 @@ namespace Pyontan.ViewModels
         public ExplainBoxViewModel(MainWindowViewModel parent) : base(parent)
         {
             this.SourceDocument.TextChanged += (sender, e) => {
-                this.Project.Source = this.SourceDocument.Text;
+                this.ProjectSettings.Source = this.SourceDocument.Text;
                 RaisePropertyChanged(nameof(SourceDocument)); 
             };
-            this.Project.PropertyChanged += (sender, e) =>
+            this.ProjectSettings.PropertyChanged += (sender, e) =>
             {
                 ExecuteCommand.RaiseCanExecuteChanged();
             };
@@ -37,19 +37,13 @@ namespace Pyontan.ViewModels
             {
                 RaisePropertyChanged(nameof(Logs));
             };
-            this.SourceDocument.Text = this.Project.Source ?? "";
-            this.Project.Loaded += (sender, e) =>
+            this.SourceDocument.Text = this.ProjectSettings.Source ?? "";
+            this.ProjectSettings.Loaded += (sender, e) =>
             {
-                this.SourceDocument.Text = this.Project.Source ?? "";
+                this.SourceDocument.Text = this.ProjectSettings.Source ?? "";
             };
         }
-        public DbProject Project
-        {
-            get
-            {
-                return this.Parent.Project;
-            }
-        }
+
         public ProjectSettings ProjectSettings
         {
             get
@@ -81,7 +75,6 @@ namespace Pyontan.ViewModels
         {
             try
             {
-                this.Project.Validate();
                 this.ProjectSettings.Validate();
                 return true;
             }
@@ -102,7 +95,7 @@ namespace Pyontan.ViewModels
             {
                 this.Logs.Clear();
                 var cp = new CSharpExecutor();
-                await cp.ExecuteAsync(this.Project, this.ProjectSettings);
+                await cp.ExecuteAsync(this.ProjectSettings);
                 foreach(var logs in cp.Logs)
                 {
                     this.Logs.Add(logs);

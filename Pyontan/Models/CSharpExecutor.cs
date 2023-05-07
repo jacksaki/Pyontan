@@ -20,7 +20,7 @@ namespace Pyontan.Models
                 RaisePropertyChanged(nameof(Logs));
             };
         }
-        public async Task ExecuteAsync(DbProject project, ProjectSettings settings)
+        public async Task ExecuteAsync(ProjectSettings settings)
         {
             this.Logs.Clear();
 
@@ -35,7 +35,7 @@ namespace Pyontan.Models
             }
 
             var script = CSharpScript.Create(sb.ToString(), scriptOptions);
-            script = script.ContinueWith(project.Source);
+            script = script.ContinueWith(settings.Source);
             var compilation = script.GetCompilation();
             var errors = compilation.GetDiagnostics().Where(d => d.Severity == DiagnosticSeverity.Error);
             if (errors.Any())
@@ -46,7 +46,6 @@ namespace Pyontan.Models
                 }
                 return;
             }
-
 
             using (var rd = new OutputRedirector())
             {

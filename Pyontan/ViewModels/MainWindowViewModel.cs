@@ -22,11 +22,14 @@ namespace Pyontan.ViewModels
         {
             this.DialogCoordinator = MahApps.Metro.Controls.Dialogs.DialogCoordinator.Instance;
             this.Settings = Settings.Create();
-            this.Project = new DbProject();
             this.ExplainBoxViewModel = new ExplainBoxViewModel(this);
             this.ExplainBoxViewModel.PropertyChanged += (sender, e) => { RaisePropertyChanged(nameof(ExplainBoxViewModel)); };
             this.ExplainBoxViewModel.ErrorOccurred += Menu_ErrorOccurred;
             this.ExplainBoxViewModel.Message += Menu_Message;
+            this.DbSetBoxViewModel = new DbSetBoxViewModel(this);
+            this.DbSetBoxViewModel.PropertyChanged += (sender, e) => { RaisePropertyChanged(nameof(DbSetBoxViewModel)); };
+            this.DbSetBoxViewModel.ErrorOccurred += Menu_ErrorOccurred;
+            this.DbSetBoxViewModel.Message += Menu_Message;
 
             this.SettingsBoxViewModel = new SettingsBoxViewModel(this);
             this.SettingsBoxViewModel.PropertyChanged += (sender, e) => { RaisePropertyChanged(nameof(SettingsBoxViewModel)); };
@@ -52,10 +55,9 @@ namespace Pyontan.ViewModels
         public void Initialize()
         {
         }
-        public DbProject Project
+        public DbSetBoxViewModel DbSetBoxViewModel
         {
             get;
-            private set;
         }
         public ExplainBoxViewModel ExplainBoxViewModel
         {
